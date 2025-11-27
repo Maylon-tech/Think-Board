@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "../libs/axios"
 import { ArrowLeftIcon } from "lucide-react"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -21,7 +21,7 @@ const CreatePage = () => {
 
     setLoading(true)
     try {
-      await axios.post("http://localhost:5001/api/notes", {
+      await api.post("/notes", {
         title,
         content
       })
@@ -50,28 +50,29 @@ const CreatePage = () => {
           <div className="card bg-base-100">
             <div className="card-body">
               <h2 className="card-title text-2xl mb-4">Create New Note</h2>
-              <form onSubmit={handleSubmit} className="">
-                <div className="form-control mb-4">
-                  <label htmlFor="" className="label">
+              <form onSubmit={handleSubmit} className="flex flex-col items-center">
+
+                <div className="w-full flex flex-col gap-2 form-control mb-4">
+                  <label className="label">
                     <span className="label-text">Title</span>
                   </label>
                   <input
                     type="text"
                     placeholder="Note Title"
-                    className="input input-bordered"
+                    className="input input-bordered w-full rounded-xl"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
 
-                <div className="form-control mb-4">
+                <div className="w-full flex flex-col gap-2 form-control mb-4">
                   <label htmlFor="" className="label">
                     <span className="label-text">Content</span>
                   </label>
                   <textarea
                     type="text"
                     placeholder="Write your note here..."
-                    className="textarea textarea-bordered h-32"
+                    className="textarea textarea-bordered h-32 w-full resize-none rounded-xl"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                   />
