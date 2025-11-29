@@ -29,7 +29,7 @@ export const createNote = async(req, res) => {
         const { title, content } = req.body
         const note = new Note({ title, content })
         
-        console.log(title, content)
+        // console.log(title, content)
 
         const saveNote = await note.save()
         res.status(201).json(saveNote)
