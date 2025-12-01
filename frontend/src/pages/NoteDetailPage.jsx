@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Link, useNavigate, useParams } from "react-router"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../libs/axios"
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react"
 
@@ -15,7 +15,7 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const fetchNote = async () => {
       try {
-        const res = await api.get(`/note/${id}`)
+        const res = await api.get(`/notes/${id}`)
         setNote(res.data)
       } catch (error) {
         toast.error("Failed to fetch the note.")
@@ -27,8 +27,10 @@ const NoteDetailPage = () => {
     fetchNote()
   }, [id])
 
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this note?")) return
+  const handleDelete = async (e, id) => {
+    e.preventDefault()
+
+    if (window.confirm("Are you sure you want to delete this note?")) return
     
     try {
       await api.delete(`/note/${id}`)
@@ -85,6 +87,7 @@ const NoteDetailPage = () => {
 
           <div className="card bg-base-100">
             <div className="card-body">
+
               <div className="form-control mb-4">
                 <label className="label">
                   <span className="label-text">Title</span>
@@ -92,7 +95,7 @@ const NoteDetailPage = () => {
                 <input
                   type="text"
                   placeholder="Note Title"
-                  className="input input-bordered"
+                  className="input input-bordered w-full rounded-xl"
                   value={note.title}
                   onChange={(e) => setNote({ ...note, title: e.target.value })}
                 />
@@ -104,7 +107,7 @@ const NoteDetailPage = () => {
                 </label>
                 <textarea                  
                   placeholder="Write your Note here.."
-                  className="textarea textarea-bordered h-32"
+                  className="textarea textarea-bordered h-32 w-full rounded-xl resize-none"
                   value={note.content}
                   onChange={(e) => setNote({ ...note, content: e.target.value })}
                 />
@@ -115,6 +118,7 @@ const NoteDetailPage = () => {
                   { saving ? "Saving..." : "Save Changes" }
                 </button>
               </div>
+
             </div>
           </div>
         </div>

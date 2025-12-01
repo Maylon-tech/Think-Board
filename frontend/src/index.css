@@ -2,3 +2,9 @@
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, cupcake;
 }
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

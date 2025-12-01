@@ -9,7 +9,7 @@ const NoteCard = ({ note , setNotes }) => {
   const handleDelete = async (e, id) => {
     e.preventDefault()
 
-    if(!window.confirm("Delete without confirm a thing."))
+    if(window.confirm("Sure want to Delete this Note?!?."))
 
     try {
       await api.delete(`/notes/${id}`) 
