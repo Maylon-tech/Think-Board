@@ -8,9 +8,7 @@ const NoteCard = ({ note , setNotes }) => {
 
   const handleDelete = async (e, id) => {
     e.preventDefault()
-
     if(window.confirm("Sure want to Delete this Note?!?."))
-
     try {
       await api.delete(`/notes/${id}`) 
       setNotes((prev) => prev.filter(note => note._id !==  id)) // Get rid of the deleted one (of array)
@@ -22,17 +20,16 @@ const NoteCard = ({ note , setNotes }) => {
     }
   }
 
-
   return (
     <Link 
-        to={`/note/${note._id}`}
-        className="card bg-base-300 hover:shadow-lg transition-all duration-200 border-r-4 border-solid border-[#00ff9d]"
+      to={`/note/${note._id}`}
+      className="card bg-base-300 hover:shadow-lg transition-all duration-200 border-r-4 border-solid border-[#00ff9d]"
     >
       <div className="card-body">
-        <h3 className="card-title text-base-content">
+        <h3 className="card-title text-base-content text-[15px] md:text-xl">
             { note.title }
         </h3>
-        <p className="text-base-content/70 line-climp-3">{ note.content }</p>
+        <p className="text-base-content/70 line-climp-3 text-[12px] md:text-lg">{ note.content }</p>
         
         <div className="card-actions justify-between items-center mt-4">
             <span className="text-sm text-base-content/60">

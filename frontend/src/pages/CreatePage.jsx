@@ -33,9 +33,6 @@ const CreatePage = () => {
     } finally {
       setLoading(false)
     }
-
-    console.log(title)
-    console.log(content)
   }
 
   return (

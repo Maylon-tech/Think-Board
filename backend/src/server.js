@@ -19,7 +19,6 @@ app.use(rateLimiter)
 //     console.log("We just got a new Requset..")
 //     next()
 // })
- 
 
 app.use("/api/notes", notesRoutes)
 // app.use("/api/clients", clientsRoutes)

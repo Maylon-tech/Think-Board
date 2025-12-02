@@ -15,12 +15,11 @@ const HomePage = () => {
     const fetchNotes = async () => {
       try {
         const res = await api.get("/notes")
-        console.log(res)
         setNotes(res.data)
         setIsRateLimited(false)
       } catch (error) {
         console.log("Error fetching notes", error)
-        console.log(error)
+    
         if (error.response?.status === 429) {
           setIsRateLimited(true)
         } else {
@@ -30,7 +29,6 @@ const HomePage = () => {
         setLoading(false)
       }
     }
-
     fetchNotes()
   }, [])
 

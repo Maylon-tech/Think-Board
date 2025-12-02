@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import api from "../libs/axios"
+import api from "../libs/axios.js"
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react"
 
 const NoteDetailPage = () => {
@@ -27,13 +27,10 @@ const NoteDetailPage = () => {
     fetchNote()
   }, [id])
 
-  const handleDelete = async (e, id) => {
-    e.preventDefault()
-
-    if (window.confirm("Are you sure you want to delete this note?")) return
-    
+  const handleDelete = async () => {
+    if (!window.confirm("Are you sure you want to delete this note?")) return
     try {
-      await api.delete(`/note/${id}`)
+      await api.delete(`/notes/${id}`)
       toast.success("Note deleted.")
       navigate("/")
     } catch (error) {
@@ -51,8 +48,9 @@ const NoteDetailPage = () => {
     setSaving(true)
 
     try {
-      await api.put(`/note/${id}`, note)
+      await api.put(`/notes/${id}`, note)
       toast.success("Note updated successfully.")
+      navigate("/")
     } catch (error) {
       console.error("Error saving the note.", error)
       toast.error("Failed to update note.")
@@ -75,12 +73,19 @@ const NoteDetailPage = () => {
 
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <Link to="/" className="btn btn-ghost">
-              <ArrowLeftIcon className="h-5 w-5" />
+            <Link
+              to="/"
+              className="btn btn-ghost md:p-0 p-1 text-[12px] md:text-lg"
+            >
+              <ArrowLeftIcon className="h-3 w-3 md:h-5 md:w-5" />
               Back to Notes
             </Link>
-            <button onClick={handleDelete} className="btn btn-error btn-outline">
-              <Trash2Icon className="h-5 w-5" />
+            
+            <button
+              onClick={handleDelete}
+              className="btn btn-error btn-outline md:p-0 p-1 text-[12px] md:text-lg"
+            >
+              <Trash2Icon className="h-3 w-3 md:h-5 md:w-5" />
               Delete Note
             </button>
           </div>
@@ -113,8 +118,12 @@ const NoteDetailPage = () => {
                 />
               </div>
 
-              <div className="card-actions mb-4">
-                <button className="btn btn-primary" disabled={saving} onClick={handleSave}>
+              <div className="card-actions justify-end mb-4">
+                <button
+                  className="btn btn-primary"
+                  disabled={saving}
+                  onClick={(e) => handleSave(e, note._id)}
+                >
                   { saving ? "Saving..." : "Save Changes" }
                 </button>
               </div>

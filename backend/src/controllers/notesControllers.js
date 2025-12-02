@@ -1,8 +1,6 @@
 import Note from '../models/Note.js'
 
-
 export const getAllNotes = async(_, res) => {
-    
     try {
         const notes = await Note.find().sort({ createdAt: 1 })
         res.status(200).json(notes)
@@ -60,7 +58,7 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
     try {        
         const deletedNote = await Note.findByIdAndDelete(req.params.id)
-        if(!deletedNote) return res.status(404).json("Note note found.!")
+        if(!deletedNote) return res.status(404).json("Note not found.!")
 
         res.status(200).json({ message: "Note Deleted successfully." })
     } catch (error) {
