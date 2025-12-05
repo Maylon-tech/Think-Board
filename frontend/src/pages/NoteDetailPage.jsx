@@ -83,7 +83,7 @@ const NoteDetailPage = () => {
             
             <button
               onClick={handleDelete}
-              className="btn btn-error btn-outline md:p-0 p-1 text-[12px] md:text-lg"
+              className="btn btn-error btn-outline md:p-2 p-1 text-[12px] md:text-lg"
             >
               <Trash2Icon className="h-3 w-3 md:h-5 md:w-5" />
               Delete Note
